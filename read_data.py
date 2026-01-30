@@ -1,13 +1,33 @@
 import os
+import json
 import pandas as pd
 
-master_df = pd.DataFrame()
+master_df = pd.DataFrame(columns=['Date', 'Company', 'Investment Amount', 'Industry Sector', 'US State Invested In', 'Source Country'])
 
 # read in all csvs
 for file in os.listdir('./out'):
     key = file.split('_')[0]
 
     print(f'Reading file {file}')
+
+    with open(f'./out/{file}', 'r') as f:
+        data = json.load(f)
+    #print(data, type(data))
+    try:
+        obj = json.loads(data)
+    except Exception as e:
+        print('err:', e)
+        print(data)
+        continue
+    df = pd.DataFrame(obj, index=[0])
+    print(f'Joining document {key}')
+    print(df, master_df)
+    master_df = pd.merge(master_df, df, how='outer')
+    #df = pd.read_json(f'./out/{file}')
+    #df = pd.DataFrame(load)
+    #df = pd.json_normalize(data)
+    continue
+    print('did not continue')
     read = []
     with open(f'./out/{file}') as f:
         print(key)

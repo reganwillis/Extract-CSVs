@@ -1,0 +1,4 @@
+torch
+transformers
+(venv) rw11@monarch:~/Extract-CSVs$ pip install haystack-ai trafilatura transformers pyvis
+pandas
