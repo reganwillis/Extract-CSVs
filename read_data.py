@@ -12,41 +12,23 @@ for file in os.listdir('./out'):
 
     with open(f'./out/{file}', 'r') as f:
         data = json.load(f)
-    #print(data, type(data))
     try:
         obj = json.loads(data)
+        df = pd.DataFrame(obj, index=[0])
     except Exception as e:
-        print('err:', e)
-        print(data)
+        print('ERR:', e)
         continue
-    df = pd.DataFrame(obj, index=[0])
     print(f'Joining document {key}')
-    print(df, master_df)
     master_df = pd.merge(master_df, df, how='outer')
-    #df = pd.read_json(f'./out/{file}')
-    #df = pd.DataFrame(load)
-    #df = pd.json_normalize(data)
-    continue
-    print('did not continue')
-    read = []
-    with open(f'./out/{file}') as f:
-        print(key)
-        for line in f:
-            if '```' not in line:
-                read.append(line)
-    #df = pd.read_csv(f'./out/{file}')
-    print(read)
-    print(read[1:], read[0])
-    exit()
-    try:
-        df = pd.DataFrame(read[1:], columns=read[0])
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+    print('Master DF', master_df)
 
-        if 'Date' in df.columns:
-            print(f'Joining document {key}')
-            master_df = pd.merge(master_df, df, how='outer')
-        else:
-            print(f'ERR: Date column not found in document {key}, format may be incorrect. Skipping for safety.')
-            print(df)
-    except TypeError:
-        print(f'ERR: Document {key} not in CSV format. Skipping.')
-print('Master DF', master_df)
+#master_df['Investment Amount'] = master_df['Investment Amount'] + master_df['Amount']
+#master_df.apply(lambda row: if 'Investment Amountaxis=1)
+master_df['Investment Amount'] = master_df['Investment Amount'].combine_first(master_df['Amount'])
+master_df = master_df.drop('Amount', axis=1)
+master_df['Source Country'] = master_df['Source Country'].combine_first(master_df['Country of Origin'])
+master_df = master_df.drop('Country of Origin', axis=1)
+master_df['Source Country'] = master_df['Source Country'].combine_first(master_df['Country'])
+master_df = master_df.drop('Country', axis=1)
+master_df.to_csv('./out.csv')
