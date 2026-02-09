@@ -23,12 +23,8 @@ for file in os.listdir('./out'):
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print('Master DF', master_df)
 
-#master_df['Investment Amount'] = master_df['Investment Amount'] + master_df['Amount']
-#master_df.apply(lambda row: if 'Investment Amountaxis=1)
 master_df['Investment Amount'] = master_df['Investment Amount'].combine_first(master_df['Amount'])
 master_df = master_df.drop('Amount', axis=1)
-master_df['Source Country'] = master_df['Source Country'].combine_first(master_df['Country of Origin'])
-master_df = master_df.drop('Country of Origin', axis=1)
 master_df['Source Country'] = master_df['Source Country'].combine_first(master_df['Country'])
 master_df = master_df.drop('Country', axis=1)
 master_df.to_csv('./out.csv')

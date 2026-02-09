@@ -29,12 +29,11 @@ generator.warm_up()
 for key, file in data_files.items():
     print('Extracting CSV:', key)
     # generate csv output
-    start = "<|input|>\n### Template: {\
+    start = "<|input|>\nExtract information about foreign investments into Mexico City. Find what country is making the investment and for how much. Include the industrial sector by which the investment is made. If unknown write NA.### Template: {\
         \"Date\": \"\", \
         \"Company\": \"\", \
         \"Investment Amount\": \"\", \
         \"Industry Sector\": \"\", \
-        \"US State Invested In\": \"\", \
         \"Source Country\": \"\" \
     } \
     #### Text: "
