@@ -1,13 +1,6 @@
 torch
 transformers
-haystack-ai
-#trafilatura transformers pyvis
-pandas
-accelerate
-
-# crawler
 requests
-beautifulsoup4
-trafilatura
-lxml_html_clean
 warcio
+beautifulsoup4
+pandas
