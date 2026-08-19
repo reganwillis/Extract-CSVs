@@ -1,5 +1,6 @@
 # Automated FDI Information Extraction from News Sources
 Crawl web data from [Common Crawl](https://commoncrawl.org/), build a dataset of news sources about FDI, then extract relevant information into CSVs.
+Note that `/supp` has other scripts and output that may be relevant.
 
 ## Usage
 Virtual environment recommended.
@@ -9,14 +10,13 @@ python crawl.py
 python extract.py
 ```
 
-## User Settings
+### User Settings
 * Edit the crawl script to crawl over specific years/months of Common Crawl data.
-
 
 ## Resources
 * [Information Extraction with Haystack and NuExtract](https://huggingface.co/learn/cookbook/en/information_extraction_haystack_nuextract)
 
-## Queries
+## Past Queries
 ```SQL
 (
 ("Mexico City" OR CDMX OR "Ciudad de Mexico" OR "Ciudad de México")

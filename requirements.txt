@@ -4,3 +4,5 @@ requests
 warcio
 beautifulsoup4
 pandas
+accelerate
+bitsandbytes
