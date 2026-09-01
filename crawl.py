@@ -64,7 +64,6 @@ def crawl():
                                     continue
                                 try:
                                     url = rec.rec_headers.get_header('WARC-Target-URI')
-                                    #print(url)
                                     text = rec.content_stream().read().decode("utf-8", "ignore")
                                     text = strip_html(text)
                                     crawl_count += 1
@@ -81,8 +80,8 @@ def crawl():
                                     # DEBUG - early stopping
                                     #if len(dataset) == 10:
                                     #    return dataset
-                                    if crawl_count == 2:
-                                        return dataset
+                                    #if crawl_count == 2:
+                                    #    return dataset
                                     #if idx == "02":
                                     #    print('Month 1 done..')
                                     #    return dataset

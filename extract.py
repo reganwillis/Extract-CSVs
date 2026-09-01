@@ -44,7 +44,6 @@ def parse_response(out):
     else:
         print('ERROR: Could not parse JSON.')
         return -1
-    #print('Response:', out)
     data = json.loads(out)
     article_title = data.get('article_title')
     publish_date = data.get('publish_date')
@@ -102,24 +101,18 @@ if __name__ == "__main__":
         print('Done.')
 
     if args.test_dataset:
-        #pd.set_option('display.max_rows', None)
-        #pd.set_option('display.max_columns', None)
-        #pd.set_option('display.width', None)
-        #pd.set_option('display.max_colwidth', None)
-
         pred = pd.read_csv('extracted_info.csv')
         pred = pred.sort_values(by='index')
         anns = pd.read_csv(DATASET + '/labels.csv')
 
-        #print('Comparing real vs predicted values:')
+        print('Comparing real vs predicted values:')
         pred = pred.set_index('index')
         anns = anns.set_index('index')
-        print(pred)
-        #print(anns)
-        #diff = pred.set_index('index').compare(anns.set_index('index'), result_names=('Predicted', 'Actual'))
-        #print('Investment Amount (Difference Report):\n', diff['Investment Amount'])
-        #print('Recipient State/Province (Difference Report):\n', diff['Recipient State/Province'])
-        #print('Source Country (Difference Report):\n', diff['Source Country'])
+        diff = pred.compare(anns, result_names=('Predicted', 'Actual'))
+        print('Investment Amount (Difference Report):\n', diff['Investment Amount'])
+        print('Invested Country:\n', diff['Invested Country'])
+        print('Recipient State/Province (Difference Report):\n', diff['Recipient State/Province'])
+        print('Source Country (Difference Report):\n', diff['Source Country'])
 
         col = 'Investment Amount'
         ia_acc = (pred[col] == anns[col]).mean()
